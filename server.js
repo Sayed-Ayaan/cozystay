@@ -11,16 +11,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const pool = new Pool({
-  user: 'postgres',
-  password: 'Psql123!',
-  host: 'cozystay.postgres.database.azure.com',      
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
   port: 5432,
-  database: 'postgres',
+  database: process.env.DB_DATABASE,
   ssl: {
-    rejectUnauthorized: false       
+    rejectUnauthorized: false
   }
 });
-
 async function checkRoomAvailability(roomType, qty, checkin, checkout) {
   const res = await pool.query(
     `SELECT room_no FROM rooms WHERE room_type = $1
