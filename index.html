@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome to CozyStays Hotel</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1 id="heading">CozyStays Hotel</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Rooms</a></li>
+          <li><a href="#">Amenities</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="admin.html" class="admin-btn">Admin</a></li> 
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2>Your Perfect Getaway Starts Here</h2>
+      <p>Experience comfort and luxury in the heart of the city. Book your stay today!</p>
+      <a href="form.html" class="btn-primary">Book Now</a>
+    </div>
+  </section>
+
+  <section class="featured-hotels container">
+    <h3>Featured Rooms</h3>
+    <div class="hotel-cards">
+      <article class="hotel-card">
+        <img src="./deluxe.jpg"
+          alt="Deluxe Room" />
+        <h4>Deluxe Room</h4>
+        <p class="description">Spacious room with king-size bed and city views.</p>
+        <a href="#" class="btn-secondary view-details">View Details</a>
+        <p class="detailed-description">Perfect for couples or those looking for a luxurious experience. Includes
+          complimentary breakfast and late check-out.</p>
+      </article>
+
+      <article class="hotel-card">
+        <img src="./executive.jpg"
+          alt="Suite" />
+        <h4>Executive Suite</h4>
+        <p class="description">Luxury suite with living area, perfect for business travelers.</p>
+        <a href="#" class="btn-secondary view-details">View Details</a>
+        <p class="detailed-description">Offers a spacious living area, work desk, and access to executive lounge. Ideal
+          for business trips and long stays.</p>
+      </article>
+
+      <article class="hotel-card">
+        <img src="./standard.jpg"
+          alt="Standard Room" />
+        <h4>Standard Room</h4>
+        <p class="description">Cozy and affordable room with all the essentials.</p>
+        <a href="#" class="btn-secondary view-details">View Details</a>
+        <p class="detailed-description">Compact room with all the basic amenities for a comfortable stay. Perfect for
+          solo travelers or short stays.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about container">
+    <h3>Why Choose CozyStays?</h3>
+    <p>At CozyStays, we prioritize your comfort and satisfaction. Enjoy free Wi-Fi, 24/7 room service, and easy access
+      to city attractions.</p>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p style='color: white;'>&copy; 2025 CozyStays Hotel. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    $(document).ready(function () {
+      $(document).on('click', '.view-details', function (e) {
+        e.preventDefault();
+
+        const card = $(this).closest('.hotel-card');
+        const shortDesc = card.find('.description');
+        const fullDesc = card.find('.detailed-description');
+
+        // Hide short and show detailed with animation
+        shortDesc.slideUp(300, function () {
+          fullDesc.slideDown(300);
+        });
+
+        // Change button
+        $(this)
+          .text('Show Less')
+          .removeClass('view-details')
+          .addClass('show-less');
+      });
+
+      $(document).on('click', '.show-less', function (e) {
+        e.preventDefault();
+
+        const card = $(this).closest('.hotel-card');
+        const shortDesc = card.find('.description');
+        const fullDesc = card.find('.detailed-description');
+
+        // Hide detailed and show short
+        fullDesc.slideUp(300, function () {
+          shortDesc.slideDown(300);
+        });
+
+        // Change button
+        $(this)
+          .text('View Details')
+          .removeClass('show-less')
+          .addClass('view-details');
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>

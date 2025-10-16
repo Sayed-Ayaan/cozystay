@@ -1,0 +1,49 @@
+-- Create enum type for room types
+CREATE TYPE room_type_enum AS ENUM ('standard', 'executive', 'deluxe');
+
+-- Customers table
+CREATE TABLE customers (
+  customer_id SERIAL PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  phone_number VARCHAR(20) NOT NULL
+);
+
+-- Rooms table
+CREATE TABLE rooms (
+  room_no INTEGER PRIMARY KEY,
+  room_type room_type_enum NOT NULL,
+  floor INTEGER NOT NULL
+);
+
+-- Bookings table
+CREATE TABLE bookings (
+  booking_id SERIAL PRIMARY KEY,
+  customer_id INTEGER REFERENCES customers(customer_id) ON DELETE CASCADE,
+  room_no INTEGER REFERENCES rooms(room_no) ON DELETE CASCADE,
+  check_in_date DATE NOT NULL,
+  check_out_date DATE NOT NULL,
+  CONSTRAINT check_dates CHECK (check_out_date > check_in_date)
+);
+
+-- Insert rooms data
+INSERT INTO rooms (room_no, room_type, floor) VALUES
+  (101, 'standard', 1),
+  (102, 'standard', 1),
+  (103, 'standard', 1),
+  (104, 'standard', 1),
+  (105, 'standard', 1),
+  (106, 'standard', 1),
+  (107, 'standard', 1),
+  (108, 'standard', 1),
+  (109, 'standard', 1),
+  (110, 'standard', 1),
+
+  (201, 'executive', 2),
+  (202, 'executive', 2),
+  (203, 'executive', 2),
+  (204, 'executive', 2),
+  (205, 'executive', 2),
+
+  (301, 'deluxe', 3),
+  (302, 'deluxe', 3),
+  (303, 'deluxe', 3);

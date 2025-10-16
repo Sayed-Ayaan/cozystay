@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hotel Booking Form</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="form.css" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html"><h1 id="heading">CozyStays Hotel</h1></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Rooms</a></li>
+          <li><a href="#">Amenities</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="admin.html" class="admin-btn">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="booking-form-container">
+    <h1 style="font-size: 3rem;">Find Your Perfect Stay</h2>
+    <form id="bookingForm" class="booking-form" action="#" method="POST">
+      <!-- Row for Full Name -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="Your full name" required />
+        </div>
+      </div>
+
+      <!-- Row for Phone Number -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input class="form-input" type="tel" id="phone" name="phone" placeholder="9999999999"
+            pattern="^(\+91[\-\s]?|0)?[6-9]\d{9}$" required />
+        </div>
+      </div>
+
+      <!-- Row for Check-in and Check-out Dates -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="checkin">Check-in Date</label>
+          <input class="form-input" type="date" id="checkin" name="checkin" required />
+        </div>
+
+        <div class="form-group">
+          <label for="checkout">Check-out Date</label>
+          <input class="form-input" type="date" id="checkout" name="checkout" required />
+        </div>
+      </div>
+
+      <!-- Row for Room Types and Quantities -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="deluxeRooms">Deluxe Rooms</label>
+          <input class="form-input" type="number" id="deluxeRooms" name="deluxeRooms" placeholder="0" min="0" max="3" value="0" required />
+        </div>
+
+        <div class="form-group">
+          <label for="suiteRooms">Executive Suites</label>
+          <input class="form-input" type="number" id="suiteRooms" name="suiteRooms" placeholder="0" min="0" max="5" value="0" required />
+        </div>
+
+        <div class="form-group">
+          <label for="standardRooms">Standard Rooms</label>
+          <input class="form-input" type="number" id="standardRooms" name="standardRooms" placeholder="0" min="0" max="10" value="0" required />
+        </div>
+      </div>
+
+      <button style="margin-top: 60px;" type="submit">Book Room</button>
+    </form>
+  </main>
+  <footer>
+    <div class="container">
+      <p style='color: white;padding-left: 400px;'>&copy; 2025 CozyStays Hotel. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+
+<script>
+document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
+
+  // Grab the actual values of the input fields
+  const deluxeRooms = document.getElementById('deluxeRooms').value;
+  const suiteRooms = document.getElementById('suiteRooms').value;
+  const standardRooms = document.getElementById('standardRooms').value;
+
+  try {
+    const response = await fetch('http://localhost:3000/book-room', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('Booking successful!');
+      // Redirect to the receipt page with room quantities in the query string
+      window.location.href = `receipt.html?deluxeRooms=${deluxeRooms}&suiteRooms=${suiteRooms}&standardRooms=${standardRooms}`;
+    } else {
+      alert('Booking failed: ' + result.error);
+    }
+  } catch (err) {
+    alert('Error submitting booking: ' + err.message);
+  }
+});
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking Receipt</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="receipt.css" />
+  <script src="receipt.js" defer></script>
+</head>
+
+<body>
+  <h1>Your Booking Receipt</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Room Type</th>
+        <th>Quantity</th>
+        <th>Price Per Room (₹)</th>
+        <th>Subtotal (₹)</th>
+      </tr>
+    </thead>
+    <tbody id="receiptBody"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">Subtotal</td>
+        <td id="subtotalAmount">₹0.00</td>
+      </tr>
+      <tr>
+        <td colspan="3">GST (18%)</td>
+        <td id="gstAmount">₹0.00</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="3">Total Amount</td>
+        <td id="totalAmount">₹0.00</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <button class="print-btn" onclick="window.print()">Print</button>
+</body>
+
+</html>
