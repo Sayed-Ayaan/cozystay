@@ -100,7 +100,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   const standardRooms = document.getElementById('standardRooms').value;
 
   try {
-    const response = await fetch('http://localhost:3000/book-room', {
+    const response = await fetch('/book-room', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

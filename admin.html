@@ -84,7 +84,7 @@
   <script>
     async function loadBookings() {
       try {
-        const response = await fetch('http://localhost:3000/admin/bookings');
+        const response = await fetch('/admin/bookings');
         if (!response.ok) throw new Error('Failed to fetch bookings');
         const bookings = await response.json();
         const tbody = document.querySelector('#bookingsTable tbody');
