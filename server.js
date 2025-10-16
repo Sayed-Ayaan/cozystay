@@ -7,6 +7,10 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;  
 
+const path = require('path');
+
+app.use(express.static(path.join(__dirname))); 
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -20,6 +24,7 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
+
 async function checkRoomAvailability(roomType, qty, checkin, checkout) {
   const res = await pool.query(
     `SELECT room_no FROM rooms WHERE room_type = $1
@@ -33,6 +38,10 @@ async function checkRoomAvailability(roomType, qty, checkin, checkout) {
 
   return res.rows.length >= qty;
 }
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.post('/book-room', async (req, res) => {
   try {
