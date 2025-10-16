@@ -100,7 +100,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   const standardRooms = document.getElementById('standardRooms').value;
 
   try {
-    const response = await fetch('/book-room', {
+    const response = await fetch('https://cozystay-dac3d8cvg7hsekd0.eastasia-01.azurewebsites.net/book-room', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

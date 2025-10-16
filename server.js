@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;  
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -159,6 +159,7 @@ app.post('/login', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 
 app.listen(port, () => {
