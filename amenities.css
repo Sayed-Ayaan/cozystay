@@ -1,0 +1,55 @@
+/* ====== Import Base Styles ====== */
+@import url('styles.css');
+
+/* ====== Amenities Page ====== */
+
+header h1 {
+  color: #003366;
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.amenities-list {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+.amenities-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.amenities-list li::before {
+  content: "✔";
+  color: #0077cc;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.amenities-list li:last-child {
+  border-bottom: none;
+}
+
+/* Hover effect */
+.amenities-list li:hover {
+  color: #0077cc;
+  cursor: default;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .amenities-list {
+    width: 90%;
+    padding: 20px;
+  }
+}

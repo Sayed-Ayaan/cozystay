@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT;  
+const port = process.env.PORT || 3000;  
 
 const path = require('path');
 
@@ -18,11 +18,8 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
-  port: 5432,
+  port: process.env.DB_PORT || 5432,
   database: process.env.DB_DATABASE,
-  ssl: {
-    rejectUnauthorized: false
-  }
 });
 
 async function checkRoomAvailability(roomType, qty, checkin, checkout) {
@@ -144,31 +141,6 @@ app.get('/admin/bookings', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 });
-
-
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Missing username or password' });
-  }
-
-  try {
-    const query = 'SELECT * FROM admin WHERE username = $1 AND password = $2';
-    const result = await pool.query(query, [username, password]);
-
-    if (result.rows.length > 0) {
-      req.session.user = username; 
-      return res.json({ message: 'Login successful' });
-    } else {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-  } catch (err) {
-    console.error('Error during login:', err);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 
 
 app.listen(port, () => {

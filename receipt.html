@@ -4,42 +4,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Booking Receipt</title>
+  <title>Booking Receipt | CozyStays Hotel</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="receipt.css" />
   <script src="receipt.js" defer></script>
 </head>
 
 <body>
-  <h1>Your Booking Receipt</h1>
+  <header>
+    <div class="container">
+      <h1 id="heading">CozyStays Hotel</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="rooms.html">Rooms</a></li>
+          <li><a href="amenities.html">Amenities</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Room Type</th>
-        <th>Quantity</th>
-        <th>Price Per Room (₹)</th>
-        <th>Subtotal (₹)</th>
-      </tr>
-    </thead>
-    <tbody id="receiptBody"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="3">Subtotal</td>
-        <td id="subtotalAmount">₹0.00</td>
-      </tr>
-      <tr>
-        <td colspan="3">GST (18%)</td>
-        <td id="gstAmount">₹0.00</td>
-      </tr>
-      <tr class="total-row">
-        <td colspan="3">Total Amount</td>
-        <td id="totalAmount">₹0.00</td>
-      </tr>
-    </tfoot>
-  </table>
+  <main>
+    <h1>Your Booking Receipt</h1>
 
-  <button class="print-btn" onclick="window.print()">Print</button>
+    <table class="receipt-table">
+      <thead>
+        <tr>
+          <th colspan="5">Booking Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Guest Name</strong></td>
+          <td id="guestName" colspan="4">Valued Guest</td>
+        </tr>
+        <tr>
+          <td><strong>Check-in</strong></td>
+          <td id="checkinDate"></td>
+          <td><strong>Check-out</strong></td>
+          <td id="checkoutDate"></td>
+          <td><strong>Nights</strong>: <span id="numNights"></span></td>
+        </tr>
+        <tr>
+          <th>Room Type</th>
+          <th>Quantity</th>
+          <th>Price/Night (₹)</th>
+          <th>Nights</th>
+          <th>Subtotal (₹)</th>
+        </tr>
+      </tbody>
+      <tbody id="receiptBody"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">Subtotal</td>
+          <td id="subtotalAmount">₹0.00</td>
+        </tr>
+        <tr>
+          <td colspan="4">GST (18%)</td>
+          <td id="gstAmount">₹0.00</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="4">Total Amount</td>
+          <td id="totalAmount">₹0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <button class="print-btn" onclick="window.print()">Print Receipt</button>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="color: white;">&copy; 2025 CozyStays Hotel. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 
 </html>

@@ -5,42 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin - All Bookings</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f7f7f7;
-    }
+  <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="header.css" />
 
-    h1 {
-      margin-bottom: 20px;
-      color: #004080;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    th,
-    td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
-
-    th {
-      background-color: #004080;
-      color: white;
-    }
-
-    tbody tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-  </style>
 </head>
 
 <body>
@@ -50,29 +17,31 @@
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="#">Rooms</a></li>
-          <li><a href="#">Amenities</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="admin.html" class="admin-btn">Admin</a></li>
+          <li><a href="rooms.html">Rooms</a></li>
+          <li><a href="amenities.html">Amenities</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <h1>All Bookings</h1>
-  <table id="bookingsTable">
-    <thead>
-      <tr>
-        <th>Booking ID</th>
-        <th>Customer Name</th>
-        <th>Phone Number</th>
-        <th>Room Number</th>
-        <th>Room Type</th>
-        <th>Check-In</th>
-        <th>Check-Out</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+
+  <main class="container">
+    <h1>All Bookings</h1>
+    <table id="bookingsTable">
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Customer Name</th>
+          <th>Phone Number</th>
+          <th>Room Number</th>
+          <th>Room Type</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
 
   <footer>
     <div class="container">
@@ -80,11 +49,10 @@
     </div>
   </footer>
 
-
   <script>
     async function loadBookings() {
       try {
-        const response = await fetch('https://cozystay-dac3d8cvg7hsekd0.eastasia-01.azurewebsites.net/admin/bookings');
+        const response = await fetch('/admin/bookings');
         if (!response.ok) throw new Error('Failed to fetch bookings');
         const bookings = await response.json();
         const tbody = document.querySelector('#bookingsTable tbody');
@@ -98,6 +66,7 @@
 
           const formattedCheckInDate = `${checkInDate.getDate().toString().padStart(2, '0')}/${(checkInDate.getMonth() + 1).toString().padStart(2, '0')}/${checkInDate.getFullYear()}`;
           const formattedCheckOutDate = `${checkOutDate.getDate().toString().padStart(2, '0')}/${(checkOutDate.getMonth() + 1).toString().padStart(2, '0')}/${checkOutDate.getFullYear()}`;
+
           tr.innerHTML = `
             <td>${booking.booking_id}</td>
             <td>${booking.full_name}</td>
@@ -109,7 +78,6 @@
           `;
           tbody.appendChild(tr);
         });
-
       } catch (error) {
         alert(error.message);
       }

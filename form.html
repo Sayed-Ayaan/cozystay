@@ -5,30 +5,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hotel Booking Form</title>
-  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="form.css" />
+  <link rel="stylesheet" href="header.css" />
 </head>
 
 <body>
   <header>
     <div class="container">
-      <a href="index.html"><h1 id="heading">CozyStays Hotel</h1></a>
+      <h1 id="heading">CozyStays Hotel</h1>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="#">Rooms</a></li>
-          <li><a href="#">Amenities</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="admin.html" class="admin-btn">Admin</a></li>
+          <li><a href="rooms.html">Rooms</a></li>
+          <li><a href="amenities.html">Amenities</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="booking-form-container">
-    <h1 style="font-size: 3rem;">Find Your Perfect Stay</h2>
-    <form id="bookingForm" class="booking-form" action="#" method="POST">
-      <!-- Row for Full Name -->
+    <h1>Find Your Perfect Stay</h1>
+    <form id="bookingForm" class="booking-form" method="POST">
+      <!-- Full Name -->
       <div class="form-row">
         <div class="form-group">
           <label for="name">Full Name</label>
@@ -36,7 +35,7 @@
         </div>
       </div>
 
-      <!-- Row for Phone Number -->
+      <!-- Phone -->
       <div class="form-row">
         <div class="form-group">
           <label for="phone">Phone Number</label>
@@ -45,82 +44,68 @@
         </div>
       </div>
 
-      <!-- Row for Check-in and Check-out Dates -->
+      <!-- Dates -->
       <div class="form-row">
         <div class="form-group">
           <label for="checkin">Check-in Date</label>
           <input class="form-input" type="date" id="checkin" name="checkin" required />
         </div>
-
         <div class="form-group">
           <label for="checkout">Check-out Date</label>
           <input class="form-input" type="date" id="checkout" name="checkout" required />
         </div>
       </div>
 
-      <!-- Row for Room Types and Quantities -->
+      <!-- Room Quantities -->
       <div class="form-row">
         <div class="form-group">
           <label for="deluxeRooms">Deluxe Rooms</label>
-          <input class="form-input" type="number" id="deluxeRooms" name="deluxeRooms" placeholder="0" min="0" max="3" value="0" required />
+          <input class="form-input" type="number" id="deluxeRooms" name="deluxeRooms" min="0" value="0" required />
         </div>
 
         <div class="form-group">
           <label for="suiteRooms">Executive Suites</label>
-          <input class="form-input" type="number" id="suiteRooms" name="suiteRooms" placeholder="0" min="0" max="5" value="0" required />
+          <input class="form-input" type="number" id="suiteRooms" name="suiteRooms" min="0" value="0" required />
         </div>
 
         <div class="form-group">
           <label for="standardRooms">Standard Rooms</label>
-          <input class="form-input" type="number" id="standardRooms" name="standardRooms" placeholder="0" min="0" max="10" value="0" required />
+          <input class="form-input" type="number" id="standardRooms" name="standardRooms" min="0" value="0" required />
         </div>
       </div>
 
-      <button style="margin-top: 60px;" type="submit">Book Room</button>
+      <button type="submit">Book Room</button>
     </form>
   </main>
+
   <footer>
     <div class="container">
-      <p style='color: white;padding-left: 400px;'>&copy; 2025 CozyStays Hotel. All rights reserved.</p>
+      <p>&copy; 2025 CozyStays Hotel. All rights reserved.</p>
     </div>
   </footer>
 
-</body>
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-<script>
-document.getElementById('bookingForm').addEventListener('submit', async function (e) {
-  e.preventDefault();
+      const name = document.getElementById('name').value;
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const deluxeRooms = document.getElementById('deluxeRooms').value;
+      const suiteRooms = document.getElementById('suiteRooms').value;
+      const standardRooms = document.getElementById('standardRooms').value;
 
-  const formData = new FormData(this);
-  const data = Object.fromEntries(formData.entries());
+      if (new Date(checkout) <= new Date(checkin)) {
+        alert("Check-out date must be after check-in date!");
+        return;
+      }
 
-  // Grab the actual values of the input fields
-  const deluxeRooms = document.getElementById('deluxeRooms').value;
-  const suiteRooms = document.getElementById('suiteRooms').value;
-  const standardRooms = document.getElementById('standardRooms').value;
-
-  try {
-    const response = await fetch('https://cozystay-dac3d8cvg7hsekd0.eastasia-01.azurewebsites.net/book-room', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+      // Redirect to receipt page with all details
+      window.location.href =
+        `receipt.html?name=${encodeURIComponent(name)}&checkin=${checkin}&checkout=${checkout}` +
+        `&deluxeRooms=${deluxeRooms}&suiteRooms=${suiteRooms}&standardRooms=${standardRooms}`;
     });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert('Booking successful!');
-      // Redirect to the receipt page with room quantities in the query string
-      window.location.href = `receipt.html?deluxeRooms=${deluxeRooms}&suiteRooms=${suiteRooms}&standardRooms=${standardRooms}`;
-    } else {
-      alert('Booking failed: ' + result.error);
-    }
-  } catch (err) {
-    alert('Error submitting booking: ' + err.message);
-  }
-});
-</script>
+  </script>
+</body>
 
 </html>

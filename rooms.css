@@ -2,7 +2,6 @@
 @import url('styles.css');
 
 /* ====== Booking Receipt Page ====== */
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
@@ -18,30 +17,8 @@ main h1 {
   font-size: 2rem;
 }
 
-/* Guest Info Box */
-.guest-info {
-  background-color: white;
-  width: 90%;
-  max-width: 700px;
-  margin: 0 auto 30px;
-  padding: 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
-  color: #003366;
-  line-height: 1.6;
-}
-
-.guest-info p {
-  margin: 8px 0;
-}
-
-.guest-info strong {
-  color: #0077cc;
-}
-
-/* Receipt Table */
-table {
+/* Unified Receipt Table */
+.receipt-table {
   width: 90%;
   max-width: 900px;
   margin: 0 auto 40px;
@@ -52,18 +29,29 @@ table {
   overflow: hidden;
 }
 
-th,
-td {
+.receipt-table th,
+.receipt-table td {
   border: 1px solid #ddd;
   padding: 12px 15px;
   text-align: center;
   font-size: 1rem;
 }
 
-th {
+.receipt-table thead th {
   background-color: #0077cc;
   color: white;
   font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.receipt-table tbody tr:nth-child(odd) td {
+  background-color: #f9f9f9;
+}
+
+.receipt-table td:first-child {
+  font-weight: 600;
+  color: #003366;
+  text-align: left;
 }
 
 .total-row td {
@@ -93,12 +81,12 @@ th {
 
 /* Responsive */
 @media (max-width: 768px) {
-  table {
+  .receipt-table {
     width: 95%;
   }
 
-  th,
-  td {
+  .receipt-table th,
+  .receipt-table td {
     padding: 8px;
     font-size: 0.9rem;
   }
