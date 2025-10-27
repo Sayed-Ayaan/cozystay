@@ -1,98 +1,51 @@
 /* ====== Import Base Styles ====== */
 @import url('styles.css');
 
-/* ====== Booking Receipt Page ====== */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-}
+/* ====== Rooms Page ====== */
 
-/* Page Title */
-main h1 {
+header h1 {
   color: #003366;
   text-align: center;
-  margin: 40px 0 30px;
-  font-size: 2rem;
+  margin: 40px 0 20px;
 }
 
-/* Unified Receipt Table */
-.receipt-table {
-  width: 90%;
-  max-width: 900px;
-  margin: 0 auto 40px;
-  border-collapse: collapse;
+.room {
   background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 25px;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.receipt-table th,
-.receipt-table td {
-  border: 1px solid #ddd;
-  padding: 12px 15px;
-  text-align: center;
+.room:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.room h2 {
+  color: #0077cc;
+  margin-bottom: 10px;
+}
+
+.room p {
+  margin-bottom: 10px;
   font-size: 1rem;
+  color: #444;
 }
 
-.receipt-table thead th {
-  background-color: #0077cc;
-  color: white;
-  font-weight: 600;
+.room strong {
+  color: #003366;
+}
+
+/* Price Highlight */
+.room p strong {
   font-size: 1.1rem;
 }
 
-.receipt-table tbody tr:nth-child(odd) td {
-  background-color: #f9f9f9;
-}
-
-.receipt-table td:first-child {
-  font-weight: 600;
-  color: #003366;
-  text-align: left;
-}
-
-.total-row td {
-  font-weight: bold;
-  background-color: #f2f8ff;
-}
-
-/* Print Button */
-.print-btn {
-  display: block;
-  margin: 20px auto 60px;
-  padding: 12px 25px;
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.print-btn:hover {
-  background-color: #005fa3;
-  transform: translateY(-2px);
-}
-
-/* Responsive */
+/* Responsive Layout */
 @media (max-width: 768px) {
-  .receipt-table {
-    width: 95%;
-  }
-
-  .receipt-table th,
-  .receipt-table td {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  .print-btn {
-    width: 80%;
-    font-size: 0.9rem;
+  .room {
+    padding: 20px;
   }
 }
