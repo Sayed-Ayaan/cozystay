@@ -85,10 +85,11 @@
   </footer>
 
   <script>
-    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
       const checkin = document.getElementById('checkin').value;
       const checkout = document.getElementById('checkout').value;
       const deluxeRooms = document.getElementById('deluxeRooms').value;
@@ -100,12 +101,49 @@
         return;
       }
 
-      // Redirect to receipt page with all details
-      window.location.href =
-        `receipt.html?name=${encodeURIComponent(name)}&checkin=${checkin}&checkout=${checkout}` +
-        `&deluxeRooms=${deluxeRooms}&suiteRooms=${suiteRooms}&standardRooms=${standardRooms}`;
+      // Send booking to server
+      try {
+        const res = await fetch('/book-room', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            phone,
+            checkin,
+            checkout,
+            deluxeRooms,
+            suiteRooms,
+            standardRooms
+          })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+         alert('Booking successful!'); 
+          // Redirect to receipt page with query params
+          const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+          const query = new URLSearchParams({
+            name,
+            checkin,
+            checkout,
+            deluxeRooms,
+            suiteRooms,
+            standardRooms,
+            nights
+          }).toString();
+
+          window.location.href = `receipt.html?${query}`;
+        } else {
+          alert(data.error || 'Booking failed!');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error connecting to server');
+      }
     });
   </script>
+
 </body>
 
 </html>
