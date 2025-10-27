@@ -26,7 +26,7 @@
 
   <main class="booking-form-container">
     <h1>Find Your Perfect Stay</h1>
-    <form id="bookingForm" class="booking-form" method="POST">
+    <form id="bookingForm" class="booking-form">
       <!-- Full Name -->
       <div class="form-row">
         <div class="form-group">
@@ -85,7 +85,7 @@
   </footer>
 
   <script>
-    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const name = document.getElementById('name').value;
@@ -96,51 +96,29 @@
       const suiteRooms = document.getElementById('suiteRooms').value;
       const standardRooms = document.getElementById('standardRooms').value;
 
+      // Validate date range
       if (new Date(checkout) <= new Date(checkin)) {
         alert("Check-out date must be after check-in date!");
         return;
       }
 
-      // Send booking to server
-      try {
-        const res = await fetch('/book-room', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name,
-            phone,
-            checkin,
-            checkout,
-            deluxeRooms,
-            suiteRooms,
-            standardRooms
-          })
-        });
+      // Calculate number of nights
+      const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
 
-        const data = await res.json();
+      // Redirect with booking details in URL
+      const query = new URLSearchParams({
+        name,
+        phone,
+        checkin,
+        checkout,
+        deluxeRooms,
+        suiteRooms,
+        standardRooms,
+        nights
+      }).toString();
 
-        if (res.ok) {
-         alert('Booking successful!'); 
-          // Redirect to receipt page with query params
-          const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
-          const query = new URLSearchParams({
-            name,
-            checkin,
-            checkout,
-            deluxeRooms,
-            suiteRooms,
-            standardRooms,
-            nights
-          }).toString();
-
-          window.location.href = `receipt.html?${query}`;
-        } else {
-          alert(data.error || 'Booking failed!');
-        }
-      } catch (err) {
-        console.error(err);
-        alert('Error connecting to server');
-      }
+      alert('Booking successful!');
+      window.location.href = `receipt.html?${query}`;
     });
   </script>
 
