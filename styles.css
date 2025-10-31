@@ -21,7 +21,6 @@ body {
   margin: 0 auto;
 }
 
-
 /* ====== Buttons ====== */
 .btn-primary {
   background-color: #ff6600; /* orange for homepage booking/login buttons */
@@ -52,7 +51,7 @@ body {
   background-color: #e65c00;
 }
 
-/* Admin button (no orange) */
+/* Admin button (no orange, clean white text) */
 .admin-btn {
   background-color: transparent;
   color: white;
@@ -67,18 +66,48 @@ body {
   color: #ff6600;
 }
 
+/* Logout button */
+.logout-btn {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #c9302c;
+  transform: translateY(-2px);
+}
+
+/* ====== Navbar Layout Fix ====== */
+nav ul {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+}
+
+#auth-link {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between admin and logout/login buttons */
+}
+
 /* ====== Hero Section ====== */
 .hero {
   height: 400px;
   display: flex;
   align-items: center;
-  text-shadow: 0 0 10px rgba(0,0,0,0.7);
   margin-bottom: 40px;
 }
 
 .hero .container {
   max-width: 700px;
-  color: white;
+  color: black;
 }
 
 .hero h2 {
@@ -109,7 +138,7 @@ body {
 .hotel-card {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 300px;
   overflow: hidden;
   display: flex;
@@ -167,7 +196,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1; /* push footer down */
+  flex: 1;
   background-color: #f9f9f9;
   padding: 40px 20px;
 }
@@ -280,7 +309,6 @@ table th {
   color: white;
 }
 
-
 /* ====== Responsive ====== */
 @media (max-width: 768px) {
   header .container {
@@ -293,6 +321,11 @@ table th {
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
+  }
+
+  #auth-link {
+    flex-direction: column;
+    gap: 6px;
   }
 
   .hotel-cards {

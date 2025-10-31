@@ -19,8 +19,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="rooms.html">Rooms</a></li>
           <li><a href="amenities.html">Amenities</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <!-- <li id="auth-link"></li>  -->
+          <li id="auth-link"></li>
         </ul>
       </nav>
     </div>
@@ -72,64 +71,80 @@
       to city attractions.</p>
   </section>
 
-  <footer>
-    <div class="container">
-      <p style='color: white;'>&copy; 2025 CozyStays Hotel. All rights reserved.</p>
+<footer class="footer">
+  <div class="footer-container">
+  <div class="footer-info">
+      <h3>Contact Us</h3>
+      <p><i class="fas fa-map-marker-alt"></i> XYZ, Wadala (E), 400031</p>
+      <p><i class="fas fa-phone-alt"></i> +91 9898989898</p>
+      <p><i class="fas fa-envelope"></i> info@cozystay.com</p>
     </div>
-  </footer>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 CozyStays Hotel. All rights reserved.</p>
+  </div>
+</footer>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Check if user is stored in localStorage
-    const user = localStorage.getItem('user');
+    document.addEventListener("DOMContentLoaded", function () {
+      const user = localStorage.getItem('user');
+      const authLink = document.getElementById('auth-link');
 
-    const authLink = document.getElementById('auth-link');
+      if (user) {
+        // If logged in: show Admin + Logout
+        authLink.innerHTML = `
+          <a href="admin.html" class="admin-btn">Admin</a>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        `;
 
-    if (user) {
-      // If user is logged in, show "Admin"
-      authLink.innerHTML = '<a href="admin.html" class="admin-btn">Admin</a>';
-    } else {
-      // If user is not logged in, show "Login"
-      authLink.innerHTML = '<a href="login.html" class="login-btn">Login</a>';
-    }
+        // Logout button functionality
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+          localStorage.removeItem('user');
+          alert('You have been logged out.');
+          window.location.href = 'index.html';
+        });
+      } else {
+        // If not logged in: show Login
+        authLink.innerHTML = '<a href="login.html" class="login-btn">Login</a>';
+      }
 
-    // jQuery part for View Details toggle
-    $(document).on('click', '.view-details', function (e) {
-      e.preventDefault();
+      // jQuery for View Details toggle
+      $(document).on('click', '.view-details', function (e) {
+        e.preventDefault();
 
-      const card = $(this).closest('.hotel-card');
-      const shortDesc = card.find('.description');
-      const fullDesc = card.find('.detailed-description');
+        const card = $(this).closest('.hotel-card');
+        const shortDesc = card.find('.description');
+        const fullDesc = card.find('.detailed-description');
 
-      shortDesc.slideUp(300, function () {
-        fullDesc.slideDown(300);
+        shortDesc.slideUp(300, function () {
+          fullDesc.slideDown(300);
+        });
+
+        $(this)
+          .text('Show Less')
+          .removeClass('view-details')
+          .addClass('show-less');
       });
 
-      $(this)
-        .text('Show Less')
-        .removeClass('view-details')
-        .addClass('show-less');
-    });
+      $(document).on('click', '.show-less', function (e) {
+        e.preventDefault();
 
-    $(document).on('click', '.show-less', function (e) {
-      e.preventDefault();
+        const card = $(this).closest('.hotel-card');
+        const shortDesc = card.find('.description');
+        const fullDesc = card.find('.detailed-description');
 
-      const card = $(this).closest('.hotel-card');
-      const shortDesc = card.find('.description');
-      const fullDesc = card.find('.detailed-description');
+        fullDesc.slideUp(300, function () {
+          shortDesc.slideDown(300);
+        });
 
-      fullDesc.slideUp(300, function () {
-        shortDesc.slideDown(300);
+        $(this)
+          .text('View Details')
+          .removeClass('show-less')
+          .addClass('view-details');
       });
-
-      $(this)
-        .text('View Details')
-        .removeClass('show-less')
-        .addClass('view-details');
     });
-  });
-</script>
-
+  </script>
 
 </body>
 

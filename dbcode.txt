@@ -47,3 +47,12 @@ INSERT INTO rooms (room_no, room_type, floor) VALUES
   (301, 'deluxe', 3),
   (302, 'deluxe', 3),
   (303, 'deluxe', 3);
+
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);  
+
+INSERT INTO users (username, password)
+VALUES ('admin', '$2b$10$ClI8ql65T0VuVc9n.rvI7.ZJcU0UoIBndJj0ZHrsF602ozNW2T.3m');

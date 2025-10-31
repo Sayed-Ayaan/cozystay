@@ -143,6 +143,36 @@ app.get('/admin/bookings', async (req, res) => {
 });
 
 
+const bcrypt = require('bcrypt');
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+  try {
+    // Fetch the user by username only
+    const result = await pool.query(
+      'SELECT * FROM users WHERE username = $1',
+      [username]
+    );
+    if (result.rows.length === 0) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+    const user = result.rows[0];
+    // Compare hashed password
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+      return res.json({ message: 'OK' });
+    } else {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
